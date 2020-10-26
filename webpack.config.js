@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   name: 'react-custom',
@@ -6,6 +7,11 @@ module.exports = {
   devtool: 'eval', // hidden-source-map
   resolve: {
       extensions: ['.js', '.jsx'],
+  },
+
+  devServer: {
+    port: 3000,
+    publicPath: '/dist/',
   },
 
   entry: {
@@ -17,21 +23,24 @@ module.exports = {
       test: /\.(js|jsx)$/,
       loader: 'babel-loader',
       options: {
-        presets: [ //preset 은 plugin 모음?
+        presets: [
           ['@babel/preset-env', {
             targets: {
-              browsers: ['last 2 chrome versions'], 
+              browsers: ['last 2 chrome versions', '> 1% in KR'], 
             },
-            debug: true,
+            //debug: true,
           }],
           '@babel/preset-react'
         ],
+        plugins: ['react-hot-loader/babel'],
       },
     }],
   },
 
+  plugins: [],
+
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'app.bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: 'app.bundle.js',
   }
 };

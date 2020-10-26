@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { hot } from 'react-hot-loader/root';
 
 import Temp from './temp';
 
-ReactDom.render(<Temp />, document.querySelector('#root'));
+const Hot = hot(Temp);
+
+ReactDom.render(<Hot />, document.querySelector('#root'));
