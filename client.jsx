@@ -5,7 +5,10 @@ import { hot } from 'react-hot-loader/root';
 //import Temp from './temp';
 //const Hot = hot(Temp);
 
-import NumberBaseball from './NumberBaseball';
-const Hot = hot(NumberBaseball);
+// import NumberBaseball from './NumberBaseball';
+// const Hot = hot(NumberBaseball);
+
+import ResponseCheck from './ResponseCheck';
+const Hot = hot(ResponseCheck);
 
 ReactDom.render(<Hot />, document.querySelector('#root'));
