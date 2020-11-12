@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Ball from './Ball';
 
 function getWinNumbers() {
@@ -13,73 +13,51 @@ function getWinNumbers() {
   return [...winNumbers, bonusNumber];
 }
 
-class Lotto extends Component {
-  state = {
-    winNumbers: getWinNumbers(),
-    winBalls: [],
-    bonus: null,
-    redo: false,
-  };
+const Lotto = () => {
+  const [winNumbers, setWinNumbers] = useState(getWinNumbers());
+  const [winBalls, setWinBalls] = useState([]);
+  const [bonus, setBonus] = useState(null);
+  const [redo, setRedo] = useState(false);
 
-  timouts = [];
+  const timeouts = useRef([]);
 
-  runtimeouts = () => {
-    const { winNumbers } = this.state;
-    for (let i = 0; i < this.state.winNumbers.length -1; i++) {
-      this.timouts[i] = setTimeout(() => {
-        this.setState((prevState) => {
-          return {
-            winBalls: [...prevState.winBalls, winNumbers[i]],
-          };
-        });
+  useEffect(() => {
+    for (let i = 0; i < winNumbers.length -1; i++) {
+      timeouts.current[i] = setTimeout(() => {
+        setWinBalls((prevWinBalls) => [...prevWinBalls, winNumbers[i]]);
       }, (i+1) * 1000);
     }
-    this.timouts[6] = setTimeout(() => {
-      this.setState({
-        bonus: winNumbers[6],
-        redo: true,
-      });
+    timeouts.current[6] = setTimeout(() => {
+      setBonus(winNumbers[6]);
+      setRedo(true);
     }, 7000);
+    return () => {
+      timeouts.current.forEach((v) => {
+        clearTimeout(v);
+      });
+    }
+  } , [timeouts.current]);
+
+  const onClickRedo = () => {
+    setWinNumbers(getWinNumbers());
+    setWinBalls([]);
+    setBonus(null);
+    setRedo(false);
+
+    timeouts.current = [];
   };
 
-  componentDidMount() {
-    this.runtimeouts();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(this.state.winBalls.length === 0) this.runtimeouts();
-  }
-
-  componentWillUnmount() {
-    this.timouts.forEach((v) => {
-      clearTimeout(v);
-    });
-  }
-
-  onClickRedo = () => {
-    this.setState({
-      winNumbers: getWinNumbers(),
-      winBalls: [],
-      bonus: null,
-      redo: false,
-    });
-    this.timouts = [];
-  }
-
-  render() {
-    const { winBalls, bonus, redo } = this.state;
-    return (
-      <>
+  return (
+    <>
         <div>당첨 숫자</div>
         <div id="결과창">
           {winBalls.map((v) =><Ball key={v} number={v} />)}
         </div>
         <div>보너스!</div>
         {bonus && <Ball number={bonus} />}
-        {redo && <button onClick={this.onClickRedo}>한 번 더!</button>}
+        {redo && <button onClick={onClickRedo}>한 번 더!</button>}
       </>
-    )
-  }
+  )
 }
 
 export default Lotto;
