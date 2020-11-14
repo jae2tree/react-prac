@@ -1,6 +1,6 @@
 import React, { useState, useRef }from 'react';
 
-const Temp = () => {
+const GuGuDan = () => {
 		const [first, setFirst] = useState(Math.ceil(Math.random() * 9));
 		const [second, setSecond] = useState(Math.ceil(Math.random() * 9));
 		const [value, setValue] = useState('');
@@ -39,4 +39,4 @@ const Temp = () => {
 		)
 };
 
-export default Temp;
+export default GuGuDan;
