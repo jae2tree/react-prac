@@ -14,7 +14,10 @@ import { hot } from 'react-hot-loader/root';
 //import RSP from './RSP';
 //const Hot = hot(RSP);
 
-import Lotto from './Lotto';
-const Hot = Lotto;
+//import Lotto from './Lotto';
+//const Hot = Lotto;
+
+import TicTacToe from './TicTacToe';
+const Hot = TicTacToe;
 
 ReactDom.render(<Hot />, document.querySelector('#root'));
