@@ -6,7 +6,9 @@ import RSP from './game/RSP';
 import Lotto from './game/lotto/Lotto';
 import TicTacToe from './game/tictactoe/TicTacToe';
 
-function getList() {
+import MouseTracker from './docsexample/render-props/MouseTracker'
+
+function getGameList() {
   return [
     'GuGuDan',
     'NumberBaseball',
@@ -17,9 +19,17 @@ function getList() {
   ]
 }
 
+function getDocsExampleList() {
+  return [
+    'MouseTracker',
+  ]
+}
+
 const PracList = () => {
-  const [list, setList] = useState(getList());
+  const [gameList, setGameList] = useState(getGameList());
+  const [docsExampleList, setDocsExampleList] = useState(getDocsExampleList());
   const [view, setView] = useState(null);
+  const concatList = getGameList().concat(getDocsExampleList());
 
   const onClickList = (v) => () => {
     console.log(v);
@@ -30,6 +40,7 @@ const PracList = () => {
       case 'RSP': setView(<RSP />); break;
       case 'Lotto': setView(<Lotto />); break;
       case 'TicTacToe': setView(<TicTacToe />); break;
+      case 'MouseTracker': setView(<MouseTracker />); break;
       default : setView(null);
     }
   }
@@ -37,7 +48,8 @@ const PracList = () => {
   return(
     <>
       <div id="PracList">
-        {list.map((v, i) => {
+        {
+          concatList.map((v, i) => {
           return <li key={i} onClick={onClickList(v)} >{v}</li>
         })}
       </div>
