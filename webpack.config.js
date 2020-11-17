@@ -19,22 +19,28 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      loader: 'babel-loader',
-      options: {
-        presets: [
-          ['@babel/preset-env', {
-            targets: {
-              browsers: ['last 2 chrome versions', '> 1% in KR'], 
-            },
-            //debug: true,
-          }],
-          '@babel/preset-react'
-        ],
-        plugins: ['react-hot-loader/babel','@babel/plugin-proposal-class-properties'],
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            ['@babel/preset-env', {
+              targets: {
+                browsers: ['last 2 chrome versions', '> 1% in KR'], 
+              },
+              //debug: true,
+            }],
+            '@babel/preset-react'
+          ],
+          plugins: ['react-hot-loader/babel','@babel/plugin-proposal-class-properties'],
+        }
       },
-    }],
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
 
   plugins: [],
