@@ -29,20 +29,36 @@ const BodyLayout = () => {
     }
   }
 
-  useEffect(()=>{
-    
-    
-  }, [state.content]);
+  const displayNav = () => {
+    return (
+      <>
+        <Breadcrumb.Item>{state.main}</Breadcrumb.Item>
+        <Breadcrumb.Item>{state.sub}</Breadcrumb.Item>
+      </>
+    )
+  }
+
+  const displayHome = () => {
+    return (
+      <>
+        <h1>Home</h1>
+      </>
+    )
+  }
 
   return (
     <>
       <Content style={{ margin: '0 16px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>{state.main}</Breadcrumb.Item>
-          <Breadcrumb.Item>{state.sub}</Breadcrumb.Item>
+          {
+            state.content === 'Home'? '': displayNav()
+          }
         </Breadcrumb>
         <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
           {changeContents()}
+          {
+            state.content === 'Home'? displayHome() : ''
+          }
         </div>
       </Content>
     </>

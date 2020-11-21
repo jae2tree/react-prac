@@ -1,13 +1,12 @@
 export const initState = {
   main: '',
   sub: '',
-  content: 'home'
+  content: 'Home'
 }
 
 export const menuList =
 {
-  indexMenu : "Temp1",
-  menu : ["Temp1", "Temp2"],
+  menu : ["Home"],
   dropdownMenu : 
     {
       games : ["GuGuDan", "NumberBaseball", "ResponseCheck", "RSP", "Lotto", "TicTacToe"],
